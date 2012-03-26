@@ -41,4 +41,10 @@ class TestAdd < Test::Unit::TestCase
     assert_equal 50, @calc.Add("//whatwhat\n10whatwhat40")
     assert_equal 35, @calc.Add("//;\n17;18")
   end
+  
+  def test_negatives
+    assert_raise StandardError do
+      @calc.Add("-5,4,-4,-8")
+    end
+  end
 end

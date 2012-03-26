@@ -33,11 +33,24 @@ class Calculator
 
     ints = numbers.split(/#{delimeter}{1}|\n{1}/)
     
-    ints.inject(0) do |sum, item|
+    negatives = []
+    total = ints.inject(0) do |sum, item|
+      # check for negatives
+      if item.match(/^\-{1}/)
+        negatives << item
+      end
+      next unless negatives.empty?
+      
       if !item.match(/^[0-9]+$/) or item.empty?
         raise StandardError, "number does not meet requirements in step 1"
       end
       sum += item.to_i
     end
+    
+    unless negatives.empty?
+      raise StandardError, "There were #{negatives.length} negative(s).\n #{negatives.join("\n")}"
+    end
+    
+    total
   end
 end
