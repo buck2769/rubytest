@@ -36,4 +36,9 @@ class TestAdd < Test::Unit::TestCase
       @calc.Add("150\n,400")
     end
   end
+  
+  def test_custom_delimeter
+    assert_equal 50, @calc.Add("//whatwhat\n10whatwhat40")
+    assert_equal 35, @calc.Add("//;\n17;18")
+  end
 end

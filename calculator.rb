@@ -22,10 +22,18 @@
 class Calculator
   def Add(numbers)
     return 0 if numbers.empty?
-    ints = numbers.split(/,{1}|\n{1}/)
+    
+    # look for custom delimeter
+    if matches = numbers.match(/^\/\/(.+)$/)
+      delimeter = matches[1]
+      numbers = numbers.lines.to_a[1..-1].join
+    else
+      delimeter = ','
+    end
+
+    ints = numbers.split(/#{delimeter}{1}|\n{1}/)
     
     ints.inject(0) do |sum, item|
-      #puts "tada " + item + "\n"
       if !item.match(/^[0-9]+$/) or item.empty?
         raise StandardError, "number does not meet requirements in step 1"
       end
