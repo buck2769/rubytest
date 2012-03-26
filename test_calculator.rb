@@ -22,4 +22,18 @@ class TestAdd < Test::Unit::TestCase
   def test_2_or_more_numbers
     assert_equal 165, @calc.Add("1,3,5,56,100")
   end
+  
+  def test_line_breaks_for_delimters
+    assert_equal 300, @calc.Add("150\n70,80")
+  end
+  
+  def test_bad_line_breaks
+    assert_raise StandardError do
+      @calc.Add("150,\n7")
+    end
+    
+    assert_raise StandardError do
+      @calc.Add("150\n,400")
+    end
+  end
 end

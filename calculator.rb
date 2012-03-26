@@ -22,11 +22,12 @@
 class Calculator
   def Add(numbers)
     return 0 if numbers.empty?
-    ints = numbers.split(",")
+    ints = numbers.split(/,{1}|\n{1}/)
     
     ints.inject(0) do |sum, item|
-      if item.match(/^[0-9]+$/).size == 0
-        raise StandardError "number does not meet requirements in step 1"
+      #puts "tada " + item + "\n"
+      if !item.match(/^[0-9]+$/) or item.empty?
+        raise StandardError, "number does not meet requirements in step 1"
       end
       sum += item.to_i
     end
